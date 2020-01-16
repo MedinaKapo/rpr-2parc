@@ -5,17 +5,27 @@ public class Grad {
     private String naziv;
     private int brojStanovnika;
     private Drzava drzava;
+    private int nadmorska_visina=0;
 
-    public Grad(int id, String naziv, int brojStanovnika, Drzava drzava) {
+
+
+    public Grad(int id, String naziv, int brojStanovnika, Drzava drzava, int nadmorska_visina) {
         this.id = id;
         this.naziv = naziv;
         this.brojStanovnika = brojStanovnika;
         this.drzava = drzava;
+        this.nadmorska_visina=nadmorska_visina;
     }
 
     public Grad() {
     }
+    public int getNadmorskaVisina() {
+        return nadmorska_visina;
+    }
 
+    public void setNadmorskaVisina(int nadmorska_visina) {
+        this.nadmorska_visina = nadmorska_visina;
+    }
     public int getId() {
         return id;
     }

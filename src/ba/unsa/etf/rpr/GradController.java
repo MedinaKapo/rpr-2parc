@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class GradController {
     public TextField fieldNaziv;
+    public TextField fieldNadmorskaVisina;
     public TextField fieldBrojStanovnika;
     public ChoiceBox<Drzava> choiceDrzava;
     public ObservableList<Drzava> listDrzave;
@@ -28,6 +29,7 @@ public class GradController {
         if (grad != null) {
             fieldNaziv.setText(grad.getNaziv());
             fieldBrojStanovnika.setText(Integer.toString(grad.getBrojStanovnika()));
+            fieldNadmorskaVisina.setText(Integer.toString(grad.getNadmorskaVisina()));
             // choiceDrzava.getSelectionModel().select(grad.getDrzava());
             // ovo ne radi jer grad.getDrzava() nije identički jednak objekat kao član listDrzave
             for (Drzava drzava : listDrzave)
@@ -76,12 +78,35 @@ public class GradController {
             fieldBrojStanovnika.getStyleClass().add("poljeIspravno");
         }
 
+      //  if (!sveOk) return;
+
+        int nadmorska_visina=0;
+
+        try {
+            nadmorska_visina = Integer.parseInt(fieldNadmorskaVisina.getText());
+        } catch (NumberFormatException e) {
+            // ...
+        }
+        if (nadmorska_visina < -400 || nadmorska_visina>8000) {
+            fieldNadmorskaVisina.getStyleClass().removeAll("poljeIspravno");
+            fieldNadmorskaVisina.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        }
+
+        else {
+            fieldNadmorskaVisina.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldNadmorskaVisina.getStyleClass().add("poljeIspravno");
+        }
+
         if (!sveOk) return;
+
+
 
         if (grad == null) grad = new Grad();
         grad.setNaziv(fieldNaziv.getText());
         grad.setBrojStanovnika(Integer.parseInt(fieldBrojStanovnika.getText()));
         grad.setDrzava(choiceDrzava.getValue());
+        grad.setNadmorskaVisina(nadmorska_visina);
         Stage stage = (Stage) fieldNaziv.getScene().getWindow();
         stage.close();
     }
